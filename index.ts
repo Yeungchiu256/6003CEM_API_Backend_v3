@@ -27,9 +27,9 @@ app.use(async (ctx: RouterContext, next: any) => {
     if (ctx.status === 404) {
       ctx.status = 404;
       ctx.body = { err: "Resource not found" };
-    } 
+    }
   } catch (err: any) {
-      ct.body = { err: err }
+    ctx.body = { err: err }
   }
 });
 app.listen(10888);
