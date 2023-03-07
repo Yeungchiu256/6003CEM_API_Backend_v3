@@ -23,7 +23,7 @@ export const add = async (article: any) => {
   for (let i: number = 0; i < values.length; i++) {
     parm += '?,';
   }
-  parm = parm.slice(0, -1);
+    parm = parm.slice(0, -1);
   console.log(parm);
   console.log('key is ' + key);
   let sql = `INSERT INTO articles (${key}) VALUES (${parm})`;
