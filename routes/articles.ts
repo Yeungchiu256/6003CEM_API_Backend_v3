@@ -12,9 +12,9 @@ const articles = [
 
 const router = new Router({ prefix: '/api/v1/articles' });
 
-const getAll = async (ctx: RouterContext, next: any)=> { 
+const getAll = async (ctx: RouterContext, next: any) => {
   let articles = await model.getAll();
-if (articles.length) {
+  if (articles.length) {
     ctx.body = articles;
   } else {
     ctx.body = {}
@@ -31,12 +31,12 @@ const getById = async (ctx: RouterContext, next: any) => {
   //  ctx.status = 404;
   //}
   //await next();
-  let id =ctx.params.id
+  let id = ctx.params.id
   let articles = await model.getID(id);
-  if(articles.length){
+  if (articles.length) {
     ctx.body = articles[0]; // [0] is better
-  }else {
-    ctx.status =404
+  } else {
+    ctx.status = 404
   }
   await next();
 };
@@ -53,9 +53,11 @@ const createArticle = async (ctx: RouterContext, next: any) => {
     ctx.body = body;
   } else {
     ctx.status = 500;
-    ctx.body = {err: "insert data failed"}; }
+    ctx.body = { err: "insert data failed" };
+  }
   await next();
 };
+
 const updateArticle = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;  // read the value of ID
   let { title, fullText } = ctx.request.body;

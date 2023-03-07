@@ -1,4 +1,5 @@
 // store db information //PostgreSQL need money
+//  https://api.elephantsql.com/console/1c98702a-6b16-4ea8-b068-541ce6600173/details
 export const config = {
   host: 'tiny.db.elephantsql.com', /* DB Path */
   port: 5432,

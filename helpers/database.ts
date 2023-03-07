@@ -1,20 +1,19 @@
 import { Sequelize, QueryTypes } from 'sequelize';
 import { config } from '../config';
 // define an async utility function to get a connection // run an SQL query then end the connection
-export const run_insert = async function (sql: string, values: any) {
-  try {
-    const sequelize = new
-Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
+
+export const run_insert = async function run_insert(sql: string, values: any) { try {
+const sequelize = new Sequelize(`postgres://${ config.user}:${ config.password}@${config.host}:${config.port}/${ config.database}`);
     await sequelize.authenticate();
     let data = await sequelize.query(sql, {
-      replacements: values,  //values is array
+      replacements: values,
       type: QueryTypes.INSERT
     });
     await sequelize.close();
     return data;
   } catch (err: any) {
-    console.error(err, sql, values);
-    throw 'Insert Data error';
+    console.error(err, query, values);
+    throw 'Database query error';
   }
 }
 
