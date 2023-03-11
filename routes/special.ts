@@ -1,13 +1,13 @@
 import Router, { RouterContext } from 'koa-router';
-import {basicAuth} from '../controllers/auth';
+import { basicAuth } from '../controllers/auth';
 
-const router = new Router({prefix: '/api/v1'});
+const router = new Router({ prefix: '/api/v1' });
 
-router.get('/', async(ctx: RouterContext, next: any)=>{
-  ctx.body={
+router.get('/', async (ctx: RouterContext, next: any) => {
+  ctx.body = {
     message: 'Public API return'
   };
-  await next();
+  await next;
 })
 
 router.get('/private', basicAuth);

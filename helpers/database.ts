@@ -2,8 +2,9 @@ import { Sequelize, QueryTypes } from 'sequelize';
 import { config } from '../config';
 // define an async utility function to get a connection // run an SQL query then end the connection
 
-export const run_insert = async function run_insert(sql: string, values: any) { try {
-const sequelize = new Sequelize(`postgres://${ config.user}:${ config.password}@${config.host}:${config.port}/${ config.database}`);
+export const run_insert = async function run_insert(sql: string, values: any) {
+  try {
+    const sequelize = new Sequelize(`postgres://${ config.user}:${ config.password}@${config.host}:${config.port}/${ config.database}`);
     await sequelize.authenticate();
     let data = await sequelize.query(sql, {
       replacements: values,
@@ -17,10 +18,10 @@ const sequelize = new Sequelize(`postgres://${ config.user}:${ config.password}@
   }
 }
 
-export const run_query = async (query, values) => {
+export const run_query = async (query: string, values: any) => {
   try {
-    const sequelize = new
-Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
+    const sequelize =
+      new Sequelize(`postgres://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
     let data = await sequelize.query(query, {
       replacements: values,  //values is array

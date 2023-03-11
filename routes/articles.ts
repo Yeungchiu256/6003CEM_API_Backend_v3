@@ -39,7 +39,7 @@ const getById = async (ctx: RouterContext, next: any) => {
   } else {
     ctx.status = 404
   }
-  await next();
+  await next;
 };
 const createArticle = async (ctx: RouterContext, next: any) => {
   /*let { title, fullText } = ctx.request.body;
@@ -56,7 +56,7 @@ const createArticle = async (ctx: RouterContext, next: any) => {
     ctx.status = 500;
     ctx.body = { err: "insert data failed" };
   }
-  await next();
+  await next;
 };
 
 const updateArticle = async (ctx: RouterContext, next: any) => {
@@ -70,7 +70,7 @@ const updateArticle = async (ctx: RouterContext, next: any) => {
   } else {
     ctx.status = 404;
   }
-  await next();
+  await next;
 };
 const deleteArticle = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
@@ -81,13 +81,13 @@ const deleteArticle = async (ctx: RouterContext, next: any) => {
   } else {
     ctx.status = 404;
   }
-  await next();
+  await next;
 };
 
 router.get('/', getAll);
 //router.post('/',bodyParser(), createArticle);
-//router.post('/', basicAuth,bodyParser(), createArticle);
-router.post('/', basicAuth, bodyParser(), validateArticle, createArticle);
+router.post('/', basicAuth, bodyParser(),validateArticle, createArticle);
+//router.post('/', bodyParser(), createArticle);
 router.get('/:id([0-9]{1,})', getById);
 router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), updateArticle);
 router.del('/:id([0-9]{1,})', basicAuth, deleteArticle);

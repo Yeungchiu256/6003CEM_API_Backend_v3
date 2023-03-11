@@ -31,5 +31,6 @@ export const article = {
       "type": "integer",
       "minimum": 0
     },
-  }, "required": ["title", "allText", "authorID"]
-}  //require main must!!!
+  //}, "required": ["title", "allText", "authorID"]
+  }, "required": ["title", "allText"]
+}  //require main must have!!!
