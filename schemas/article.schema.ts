@@ -1,4 +1,5 @@
 // npm i jsonschema
+//"required": ["title", "alltext","authorID"]
 export const article = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "/article",
@@ -10,7 +11,7 @@ export const article = {
       "description": "Main title of the blog article",
       "type": "string"
     },
-    "allText": {
+    "alltext": {
       "description": "Body text of the blog article",
       "type": "string"
     },
@@ -31,6 +32,6 @@ export const article = {
       "type": "integer",
       "minimum": 0
     },
-  //}, "required": ["title", "allText", "authorID"]
-  }, "required": ["title", "allText"]
-}  //require main must have!!!
+  }, 
+  "required": ["title", "alltext"]
+}  

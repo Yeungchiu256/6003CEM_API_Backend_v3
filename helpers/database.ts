@@ -4,7 +4,8 @@ import { config } from '../config';
 
 export const run_insert = async function run_insert(sql: string, values: any) {
   try {
-    const sequelize = new Sequelize(`postgres://${ config.user}:${ config.password}@${config.host}:${config.port}/${ config.database}`);
+    const sequelize =
+      new Sequelize(`postgres://${ config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
     await sequelize.authenticate();
     let data = await sequelize.query(sql, {
       replacements: values,
@@ -14,10 +15,12 @@ export const run_insert = async function run_insert(sql: string, values: any) {
     return data;
   } catch (err: any) {
     console.error(err, query, values);
-    throw 'Database query error';
+    throw 'Insert Data error';
   }
 }
 
+
+//run_query setup database session to run and await the response of select query
 export const run_query = async (query: string, values: any) => {
   try {
     const sequelize =
@@ -31,6 +34,23 @@ export const run_query = async (query: string, values: any) => {
     return data;
   } catch (err: any) {
     console.error(err, query, values);
-    throw 'Insert Data error';
+    throw 'Database query error';
+  }
+}
+
+export const run_update = async function run_update(sql: string, values: any) {
+  try {
+    const sequelize =
+      new Sequelize(`postgres://${ config.user}:${config.password}@${config.host}:${config.port}/${config.database}`);
+    await sequelize.authenticate();
+    let data = await sequelize.query(sql, {
+      replacements: values,
+      type: QueryTypes.UPDATE
+    });
+    await sequelize.close();
+    return data;
+  } catch (err: any) {
+    console.error(err, query, values);
+    throw 'Update Data error';
   }
 }

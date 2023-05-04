@@ -5,7 +5,7 @@ import Koa from "koa";
 import logger from "koa-logger";
 import passport from 'koa-passport';
 
-import cors from '@koa/cors';
+import cors from '@koa/cors';  //  npm install @koa/cors
 
 import json from "koa-json";
 import { router as articles } from "./routes/articles";
@@ -22,7 +22,10 @@ const welcomeAPI = async (ctx: RouterContext, next: any) => {
 }
 */
 //router.get('/api/v1', welcomeAPI);  //v1, new version update to v2 etc
-app.use(cors());  //since cors
+
+//prevent cors
+app.use(cors());
+
 app.use(serve('./docs'));
 app.use(logger());
 app.use(json());
