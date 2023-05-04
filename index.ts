@@ -4,9 +4,14 @@ import Koa from "koa";
 //import Router, { RouterContext } from "koa-router";
 import logger from "koa-logger";
 import passport from 'koa-passport';
+
+import cors from '@koa/cors';
+
 import json from "koa-json";
 import { router as articles } from "./routes/articles";
-import {router as user} from './routes/special';
+import { router as user } from './routes/special';
+
+import serve from 'koa-static-folder';  //npm i koa-static-folder 
 
 const app: Koa = new Koa();
 /*const router: Router = new Router();
@@ -17,7 +22,8 @@ const welcomeAPI = async (ctx: RouterContext, next: any) => {
 }
 */
 //router.get('/api/v1', welcomeAPI);  //v1, new version update to v2 etc
-
+app.use(cors());  //since cors
+app.use(serve('./docs'));
 app.use(logger());
 app.use(json());
 //app.use(router.routes());

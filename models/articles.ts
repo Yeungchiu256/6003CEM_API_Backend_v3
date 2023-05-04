@@ -14,25 +14,28 @@ export const getID = async (id: any) => {
   return data;
 }
 
-export const add = async (article: any) => {
+export const update = async (id: number, article: any) => {
   let keys = Object.keys(article);
   let values = Object.values(article);
   //console.log(values);
-  let key = keys.join(',');
-  let parm = '';
+//  let key = keys.join(',');
+//  let parm = '';
+  let updates = '';
   for (let i: number = 0; i < values.length; i++) {
-    parm += '?,';
+    //parm += '?,';
+    updates += `${key[i]}=?,`
   }
-    parm = parm.slice(0, -1);
-  console.log(parm);
-  console.log('key is ' + key);
-  let sql = `INSERT INTO articles (${key}) VALUES (${parm})`;
-  console.log(sql);
+  updates = updates.slice(0, -1);
+  //console.log(parm);
+  //console.log('key is ' + key);
+  let sql = `UPDATE articles SET ${updates} WHERE id = ${id}`;
+  //console.log(sql);
   try {
     //????let data = await db.run_insert(sql, values);
-    await db.run_insert(sql, values);
+    await db.run_update(sql, values);
     return { status: 201 };
   } catch (err: any) {
     return err;
   }
 }
+
