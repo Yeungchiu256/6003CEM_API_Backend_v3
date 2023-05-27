@@ -1,24 +1,33 @@
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
-import * as model from '../models/articles';
+import * as model from '../models/cat';
 import { basicAuth } from '../controllers/auth';
-import { validateArticle } from '../controllers/validation';
+import { catvalidation } from '../controllers/catvalidation';
 
-//articles is sample?
-/*const articles = [
-  { title: 'hello article', fullText: 'some text here to fill the body' },
-  { title: 'another article', fullText: 'again here is some text here to fill' },
-  { title: 'coventry university ', fullText: 'some news about coventry university' },
-  { title: 'smart campus', fullText: 'smart campus is coming to IVE' }];
+//sample of cat 
+/*const cat = [
+  { catname: 'hello article', fullText: 'some text here to fill the body' },
+  { catname: 'another article', fullText: 'again here is some text here to fill' },
+  { catname: 'coventry university ', fullText: 'some news about coventry university' },
+  { catname: 'smart campus', fullText: 'smart campus is coming to IVE' }];
 */
 
-//articles path!!!!
-const router = new Router({ prefix: '/api/v1/articles' });
+//cat path!!!!
+const router = new Router({ prefix: '/api/v1/cat' });
+
+/*const router: Router = new Router();
+
+const welcomeAPI = async (ctx: RouterContext, next: any) => {
+  ctx.body = { message: "Welcome to the Cat Shelter API!" };
+  await next();
+}
+*/
+//router.get('/api/v1', welcomeAPI);  //v1, new version update to v2 etc
 
 const getAll = async (ctx: RouterContext, next: any) => {
-  let articles = await model.getAll();
-  if (articles.length) {
-    ctx.body = articles;
+  let cat = await model.getAll();
+  if (cat.length) {
+    ctx.body = cat;
   } else {
     ctx.body = {}
   }
@@ -28,16 +37,16 @@ const getAll = async (ctx: RouterContext, next: any) => {
 
 const getById = async (ctx: RouterContext, next: any) => {
   //let id = +ctx.params.id;
-  //if ((id < articles.length + 1) && (id > 0)) {
-  //  ctx.body = articles[id - 1];
+  //if ((id < cat.length + 1) && (id > 0)) {
+  //  ctx.body = cat[id - 1];
   //} else {
   //  ctx.status = 404;
   //}
   //await next();
   let id = ctx.params.id
-  let articles = await model.getID(id);
-  if (articles.length) {
-    ctx.body = articles[0]; // [0] is better
+  let cat = await model.getID(id);
+  if (cat.length) {
+    ctx.body = cat[0]; // [0] is better
   } else {
     ctx.status = 404
   }
@@ -46,9 +55,9 @@ const getById = async (ctx: RouterContext, next: any) => {
 };
 
 const createArticle = async (ctx: RouterContext, next: any) => {
-  /*let { title, fullText } = ctx.request.body;
-  let newArticle = { title: title, fullText: fullText };
-  articles.push(newArticle);
+  /*let { catname, fullText } = ctx.request.body;
+  let newArticle = { catname: catname, fullText: fullText };
+  cat.push(newArticle);
   ctx.status = 201;
   ctx.body = newArticle;*/
   const body = ctx.request.body;
@@ -66,19 +75,19 @@ const createArticle = async (ctx: RouterContext, next: any) => {
 /*const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontext is data of html contnts
   let id = +ctx.params.id;  // read the value of ID
   let c: any = ctx.request.body;
-  let title = c.title; // read the title
+  let catname = c.catname; // read the catname
   let fullText = c.allText; // read the allText
   console.log('id'+id);
-  let title_body = c.title
-  //console.log('title'+title);
+  let catname_body = c.catname
+  //console.log('catname'+catname);
   //console.log('fullText'+fullText);
-  console.log('c'+title_body);
-  //let { title, fullText } = ctx.request.body;
-  if ((id < articles.length + 1) && (id > 0)) {
-    articles[id-1].title = title;
-    articles[id-1].fullText = fullText;
+  console.log('c'+catname_body);
+  //let { catname, fullText } = ctx.request.body;
+  if ((id < cat.length + 1) && (id > 0)) {
+    cat[id-1].catname = catname;
+    cat[id-1].fullText = fullText;
     ctx.status = 200;
-    ctx.body = articles;
+    ctx.body = cat;
   } else {
     ctx.status = 404;
   }
@@ -104,10 +113,10 @@ const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontex
 
 const deleteArticle = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
-  if ((id < articles.length + 1) && (id > 0)) {
-    articles.splice(id - 1, 1);
+  if ((id < cat.length + 1) && (id > 0)) {
+    cat.splice(id - 1, 1);
     ctx.status = 200;
-    ctx.body = articles;
+    ctx.body = cat;
   } else {
     ctx.status = 404;
   }
@@ -118,13 +127,13 @@ const deleteArticle = async (ctx: RouterContext, next: any) => {
 router.get('/', getAll);
 
 //post method: add new article
-router.post('/', basicAuth, bodyParser(),validateArticle, createArticle);
+router.post('/', basicAuth, bodyParser(),catvalidation, createArticle);
 
 //get method: show article by ID
 router.get('/:id([0-9]{1,})', getById);
 
 //put method: update article by ID
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(),validateArticle, updateArticle);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(),catvalidation, updateArticle);
 
 //del method: delete article by ID
 router.del('/:id([0-9]{1,})', basicAuth, deleteArticle);
