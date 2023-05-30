@@ -1,38 +1,34 @@
 // npm i jsonschema
 //"required": ["title", "alltext","authorID"]
-export const cat = {
+export const article = {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "/cat",
-  "title": "Cat",
-  "description": "New cat information and shelter info in the Web App",
+  "id": "/article",
+  "title": "Article",
+  "description": "An article in the blog",
   "type": "object",
   "properties": {
-    "catname": {
-      "description": "Describe the cat name",
+    "title": {
+      "description": "Main title of the blog article",
       "type": "string"
     },
-    "shelterID": {
-      "description": "Locate the cat by shelterID",
+    "alltext": {
+      "description": "Body text of the blog article",
       "type": "string"
     },
-    "age": {
-      "description": "Describe the age of cat",
+    "summary": {
+      "description": "Optional short text summary of article",
       "type": "string"
     },
-    "breed": {
-      "description": "Describe the breed of cat",
-      "type": "string"
-    },    
     "imageURL": {
-      "description": "URL for main image to show the cat",
+      "description": "URL for main image to show in article",
       "type": "uri"
     },
-    "remark": {
-      "description": "Create detail of the cat",
+    "published": {
+      "description": "Is the article published or not",
       "type": "boolean"
     },
-    "authorUserID": {
-      "description": "User ID of the cat record author",
+    "authorID": {
+      "description": "User ID of the article author",
       "type": "integer",
       "minimum": 0
     },
