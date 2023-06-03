@@ -6,10 +6,10 @@ import { catvalidation } from '../controllers/catvalidation';
 
 //sample of cat 
 /*const cat = [
-  { catname: 'hello article', fullText: 'some text here to fill the body' },
-  { catname: 'another article', fullText: 'again here is some text here to fill' },
-  { catname: 'coventry university ', fullText: 'some news about coventry university' },
-  { catname: 'smart campus', fullText: 'smart campus is coming to IVE' }];
+  { catname: 'Cat01', shelterid: 'HK01' },
+  { catname: 'Cat02', shelterid: 'KN01' },
+  { catname: 'Cat03', shelterid: 'NT01' },
+  { catname: 'Cat04', shelterid: 'NT01' }];
 */
 
 //cat path!!!!
@@ -54,12 +54,12 @@ const getById = async (ctx: RouterContext, next: any) => {
   await next;
 };
 
-const createArticle = async (ctx: RouterContext, next: any) => {
-  /*let { catname, fullText } = ctx.request.body;
-  let newArticle = { catname: catname, fullText: fullText };
-  cat.push(newArticle);
+const createCat = async (ctx: RouterContext, next: any) => {
+  /*let { catname, shelterid } = ctx.request.body;
+  let newCat = { catname: catname, shelterid: shelterid };
+  cat.push(newCat);
   ctx.status = 201;
-  ctx.body = newArticle;*/
+  ctx.body = newCat;*/
   const body = ctx.request.body;
   let result = await model.add(body);
   if (result.status == 201) {
@@ -72,20 +72,20 @@ const createArticle = async (ctx: RouterContext, next: any) => {
   await next;
 };
 
-/*const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontext is data of html contnts
+/*const updateCat = async (ctx: RouterContext, next: any) => {  //Routercontext is data of html contnts
   let id = +ctx.params.id;  // read the value of ID
   let c: any = ctx.request.body;
   let catname = c.catname; // read the catname
-  let fullText = c.allText; // read the allText
+  let shelterid = c.allText; // read the allText
   console.log('id'+id);
   let catname_body = c.catname
   //console.log('catname'+catname);
-  //console.log('fullText'+fullText);
+  //console.log('shelterid'+shelterid);
   console.log('c'+catname_body);
-  //let { catname, fullText } = ctx.request.body;
+  //let { catname, shelterid } = ctx.request.body;
   if ((id < cat.length + 1) && (id > 0)) {
     cat[id-1].catname = catname;
-    cat[id-1].fullText = fullText;
+    cat[id-1].shelterid = shelterid;
     ctx.status = 200;
     ctx.body = cat;
   } else {
@@ -94,7 +94,7 @@ const createArticle = async (ctx: RouterContext, next: any) => {
   await next;
 };*/
 
-const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontext is data of html contnts
+const updateCat = async (ctx: RouterContext, next: any) => {  //Routercontext is data of html contnts
   let id = +ctx.params.id;
   const body = ctx.request.body; //slipt the json from ctx
   let result = await model.update(id, body);
@@ -102,7 +102,7 @@ const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontex
     ctx.status = 201;
     //ctx.body = body;
     ctx.body = {
-      message: 'article has been updated'
+      message: 'Cat has been updated'
     };
   } else {
     ctx.status = 500;
@@ -111,7 +111,7 @@ const updateArticle = async (ctx: RouterContext, next: any) => {  //Routercontex
   await next();
 };
 
-const deleteArticle = async (ctx: RouterContext, next: any) => {
+const deleteCat = async (ctx: RouterContext, next: any) => {
   let id = +ctx.params.id;
   if ((id < cat.length + 1) && (id > 0)) {
     cat.splice(id - 1, 1);
@@ -123,19 +123,19 @@ const deleteArticle = async (ctx: RouterContext, next: any) => {
   await next;
 };
 
-//get method: show all article
+//get method: show all Cat
 router.get('/', getAll);
 
-//post method: add new article
-router.post('/', basicAuth, bodyParser(),catvalidation, createArticle);
+//post method: add new Cat
+router.post('/', basicAuth, bodyParser(),catvalidation, createCat);
 
-//get method: show article by ID
+//get method: show Cat by ID
 router.get('/:id([0-9]{1,})', getById);
 
-//put method: update article by ID
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(),catvalidation, updateArticle);
+//put method: update Cat by ID
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(),catvalidation, updateCat);
 
-//del method: delete article by ID
-router.del('/:id([0-9]{1,})', basicAuth, deleteArticle);
+//del method: delete Cat by ID
+router.del('/:id([0-9]{1,})', basicAuth, deleteCat);
 
 export { router };

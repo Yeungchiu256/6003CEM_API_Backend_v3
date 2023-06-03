@@ -1,4 +1,5 @@
 //router for intial autherication testing
+// refer to https://www.jianshu.com/p/2552cdf35e66
 
 import Router, { RouterContext } from 'koa-router';
 import { basicAuth } from '../controllers/auth';
